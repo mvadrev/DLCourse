@@ -1,35 +1,35 @@
-import torch 
-from torch.autograd import Variable 
+import torch  
   
-x_data = Variable(torch.Tensor([[1.0], [2.0], [3.0]])) 
-y_data = Variable(torch.Tensor([[33.8], [35.6], [37.4]])) 
+x_data = torch.Tensor([[1.0], [2.0], [3.0]]) 
+y_data = torch.Tensor([[33.8], [35.6], [37.4]]) 
   
-  
+torch.manual_seed(1)
+
 class LinearRegressionModel(torch.nn.Module): 
   
     def __init__(self): 
         super(LinearRegressionModel, self).__init__() 
-        self.linear = torch.nn.Linear(1, 1)  
+        self.linear1 = torch.nn.Linear(1, 1)
+        
   
     def forward(self, x): 
-        y_pred = self.linear(x) 
+        y_pred = torch.nn.functional.relu(self.linear1(x)) 
         return y_pred 
   
-
 model = LinearRegressionModel() 
   
 criterion = torch.nn.MSELoss(size_average = False) 
-optimizer = torch.optim.SGD(our_model.parameters(), lr = 0.01) 
+optimizer = torch.optim.SGD(model.parameters(), lr = 0.01) 
   
 for epoch in range(500): 
   
-    pred_y = our_model(x_data) 
+    pred_y = model(x_data) 
     loss = criterion(pred_y, y_data) 
     optimizer.zero_grad() 
     loss.backward() 
     optimizer.step() 
     print('epoch {}, loss {}'.format(epoch, loss.data[0])) 
   
-new_var = Variable(torch.Tensor([[4.0]])) 
-pred_y = our_model(new_var) 
-print("predict (after training)", 4, our_model(new_var).data[0][0]) 
+new_var = torch.Tensor([[4.0]])
+pred_y = model(new_var) 
+print("predict (after training)", 4, model(new_var).data[0][0]) 
