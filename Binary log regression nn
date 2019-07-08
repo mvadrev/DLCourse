@@ -1,0 +1,39 @@
+import torch.nn as nn
+import torch
+import matplotlib.pyplot as plt 
+
+torch.manual_seed(2)
+import torch
+
+
+x_data = torch.Tensor([[1],[2],[18]]) 
+y_data = torch.Tensor([[0],[0],[1]]) 
+
+class logistic_regression(nn.Module):
+    # Construstor
+    def __init__(self,n_inputs):
+        super(logistic_regression, self).__init__()
+        self.linear = torch.nn.Linear(n_inputs, 1)
+        
+    # Prediction    
+    def forward(self, x):
+        yhat = torch.sigmoid(self.linear(x))
+        return yhat
+    
+model=logistic_regression(1)
+criterion = torch.nn.BCELoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+
+for epoch in range(10):
+    # Forward pass: Compute predicted y by passing x to the model
+    y_pred = model(x_data)
+    
+    loss = criterion(y_pred, y_data)
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    print('epoch {}, loss {}'.format(epoch, loss.data)) 
+    new_var = torch.Tensor([[20],[21],[22]])
+    y_n = model(new_var)
+print(y_n)
+
