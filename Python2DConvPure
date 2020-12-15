@@ -1,0 +1,44 @@
+import os 
+import torch
+import torchvision
+from torchvision.datasets.utils import download_url
+from torch.utils.data import random_split
+
+#conv2d
+image = torch.tensor([
+    [1,2,3,4,5,6],
+    [3,2,5,6,7,3],
+    [6,4,8,7,1,2],
+    [5,3,4,2,2,7],
+    [6,5,7,4,2,4]
+])
+
+kernel = torch.tensor([
+    [1,0,0],
+    [0,1,0],
+    [0,0,1]
+])
+
+hi,wi = image.shape
+hk,wk = kernel.shape
+print(image)
+print(wi,hi)
+print(wk,hk)
+
+# print(image[:3,:3])
+# print(torch.sum(image[:3,:3]))
+ro, co = hi-hk+1, wi-wk+1
+output = torch.zeros([ro, co])
+#step size 1
+for i in range(hi):
+    if (i+2 < hi):
+        for j in range(wi):
+            if (j+2 < wi):
+                print(image[i:i+3,j:j+3])
+                currentElementSum = torch.sum(image[i:i+3,j:j+3]*kernel)
+                print(currentElementSum)
+                print(j)
+                output[i:i+3,j:j+3] = currentElementSum
+          
+print(output)
+
