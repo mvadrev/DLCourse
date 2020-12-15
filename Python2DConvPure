@@ -109,9 +109,9 @@ for i in range(hi):
     if (i+2 < hi):
         for j in range(wi):
             if (j+2 < wi):
-                print(image[i:i+3,j:j+3])
+                print(image[i:i+wk,j:j+hk])
                 currentElementSum = torch.sum(image[i:i+3,j:j+3]*kernel)
-                print("mul",image[i:i+3,j:j+3]*kernel)
+                print("mul",image[i:i+wk,j:j+hk]*kernel)
                 print(currentElementSum)
                 print(j)
                 output[i:i+3,j:j+3] = currentElementSum
